@@ -501,6 +501,7 @@ export function MonitorInteraction({
      TEXTURE QUALITY
   ==================================================== */
 
+  
   useEffect(() => {
     texture.anisotropy =
       Math.min(
