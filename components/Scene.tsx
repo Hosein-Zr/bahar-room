@@ -1256,6 +1256,7 @@ export default function Scene() {
             1.043,
           ]}
 
+          
           targetOffset={[
             -1.2,
             -1.18,
