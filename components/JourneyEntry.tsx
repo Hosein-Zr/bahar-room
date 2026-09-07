@@ -480,7 +480,7 @@ export default function JourneyEntry({
           >
             A little world made
             from the things that
-            feel like you.
+            feel like Bahar.
           </h1>
 
           <p
@@ -496,13 +496,7 @@ export default function JourneyEntry({
               text-white/50
             "
           >
-            Your drawings,
-            memories, lights,
-            and tiny surprises
-            are finding their
-            place. When
-            everything is ready,
-            the door will open.
+I hope you enjoy this little room, and that it makes you feel a good bit of the same warmth and joy that I felt while making it.
           </p>
         </div>
 
