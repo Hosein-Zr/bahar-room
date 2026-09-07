@@ -51,6 +51,7 @@ import {
   DevPointLight,
   DevSpotLight,
 } from "./DevEditor";
+import JourneyEntry from "./JourneyEntry";
 
 /* ======================================================
    TYPES
@@ -929,7 +930,7 @@ export default function Scene() {
       {/* =================================================
           THREE WORLD
       ================================================= */}
-
+<JourneyEntry visible = {!entered} onEnter = {enterRoom} />
       <Canvas
         shadows
 
@@ -1202,9 +1203,9 @@ export default function Scene() {
           name="Painting Light 1"
 
           position={[
-            -3.85,
-            3.35,
-            2.98,
+            -2.13,
+            2.596,
+            1.838,
           ]}
 
           targetOffset={[
@@ -1215,8 +1216,8 @@ export default function Scene() {
 
           intensity={
             isNight
-              ? 900
-              : 300
+              ? 100
+              : 100
           }
 
           color="#ffd6ad"
@@ -1250,9 +1251,9 @@ export default function Scene() {
           name="Painting Light 2"
 
           position={[
-            -3.85,
-            3.35,
-            1.73,
+            -3.555,
+            3.428,
+            1.043,
           ]}
 
           targetOffset={[
@@ -1298,9 +1299,9 @@ export default function Scene() {
           name="Painting Light 3"
 
           position={[
-            -3.85,
-            3.35,
-            0.48,
+            -3.656,
+            3.276,
+            -1.538,
           ]}
 
           targetOffset={[
@@ -1337,6 +1338,56 @@ export default function Scene() {
             setSelected
           }
         />
+
+
+         {/* =============================================
+            PAINTING LIGHT 4
+        ============================================= */}
+
+        <DevSpotLight
+          name="Painting Light 4"
+
+          position={[
+            -3.601,
+            3.308,
+            -0.278,
+          ]}
+
+          targetOffset={[
+            -1.18,
+            -1.18,
+            0,
+          ]}
+
+          intensity={
+            isNight
+              ? 900
+              : 0
+          }
+
+          color="#ffd6ad"
+
+          distance={
+            6
+          }
+
+          angle={
+            0.48
+          }
+
+          penumbra={
+            0.65
+          }
+
+          dev={
+            dev
+          }
+
+          onSelect={
+            setSelected
+          }
+        />
+
 
         {/* =============================================
             DEV CAMERA
@@ -1390,7 +1441,7 @@ export default function Scene() {
       {/* =================================================
           ENTRY
       ================================================= */}
-
+{/* 
       {!entered && (
         <div
           className="
@@ -1496,7 +1547,7 @@ export default function Scene() {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* =================================================
           NORMAL CROSSHAIR
