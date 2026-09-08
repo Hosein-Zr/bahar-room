@@ -45,6 +45,10 @@ import {
   WindowsXPDesktop,
 } from "./MonitorExperience";
 
+import GramophoneExperience, {
+  GramophonePlayerBar,
+} from "./GramophoneExperience";
+
 import {
   Dev3DTools,
   DevPanel,
@@ -257,6 +261,22 @@ export default function Scene() {
   const [
     monitorMode,
     setMonitorMode,
+  ] =
+    useState(false);
+
+  /* ====================================================
+     GRAMOPHONE EXPERIENCE
+  ==================================================== */
+
+  const [
+    gramophoneHovered,
+    setGramophoneHovered,
+  ] =
+    useState(false);
+
+  const [
+    musicControlsOpen,
+    setMusicControlsOpen,
   ] =
     useState(false);
 
@@ -572,6 +592,42 @@ export default function Scene() {
     }, [
       lockPointer,
     ]);
+
+  /* ====================================================
+     GRAMOPHONE CONTROLS
+  ==================================================== */
+
+  const openGramophoneControls =
+    useCallback(() => {
+      /*
+       * Music is an overlay, not a separate interaction mode.
+       *
+       * Keep pointer lock active so the player can continue
+       * walking and looking around while music is playing.
+       */
+      setGramophoneHovered(
+        false
+      );
+
+      setSelected(
+        null
+      );
+
+      setMusicControlsOpen(
+        true
+      );
+    }, []);
+
+  const closeGramophoneControls =
+    useCallback(() => {
+      setMusicControlsOpen(
+        false
+      );
+
+      setGramophoneHovered(
+        false
+      );
+    }, []);
 
   /* ====================================================
      MENU
@@ -1162,6 +1218,28 @@ export default function Scene() {
         />
 
         {/* =============================================
+            GRAMOPHONE INTERACTION
+        ============================================= */}
+
+        <GramophoneExperience
+          enabled={
+            exploreMode
+          }
+
+          maxDistance={
+            3.5
+          }
+
+          onHoverChange={
+            setGramophoneHovered
+          }
+
+          onOpen={
+            openGramophoneControls
+          }
+        />
+
+        {/* =============================================
             DESK LIGHT
         ============================================= */}
 
@@ -1440,6 +1518,22 @@ export default function Scene() {
       </Canvas>
 
       {/* =================================================
+          GRAMOPHONE MUSIC NAVBAR
+
+          This is normal DOM outside <Canvas>, so it sits
+          flush against the top edge of the webpage like
+          a real navbar.
+      ================================================= */}
+
+      {musicControlsOpen && (
+        <GramophonePlayerBar
+          onClose={
+            closeGramophoneControls
+          }
+        />
+      )}
+
+      {/* =================================================
           ENTRY
       ================================================= */}
 {/* 
@@ -1582,7 +1676,8 @@ export default function Scene() {
               duration-150
 
               ${
-                monitorHovered
+                monitorHovered ||
+                gramophoneHovered
                   ? `
                     h-6
                     w-6
@@ -1604,7 +1699,7 @@ export default function Scene() {
             `}
           />
 
-          {/* INTERACTION TEXT */}
+          {/* MONITOR TEXT */}
 
           {monitorHovered && (
             <div
@@ -1632,6 +1727,36 @@ export default function Scene() {
               Open computer
             </div>
           )}
+
+          {/* GRAMOPHONE TEXT */}
+
+          {!monitorHovered &&
+            gramophoneHovered && (
+              <div
+                className="
+                  mt-3
+
+                  whitespace-nowrap
+
+                  rounded-full
+
+                  border
+                  border-white/10
+
+                  bg-black/70
+
+                  px-3
+                  py-1.5
+
+                  text-xs
+                  text-white
+
+                  backdrop-blur-md
+                "
+              >
+                Gramophone
+              </div>
+            )}
         </div>
       )}
 
@@ -1640,7 +1765,8 @@ export default function Scene() {
       ================================================= */}
 
       {exploreMode &&
-        !monitorHovered && (
+        !monitorHovered &&
+        !gramophoneHovered && (
           <div
             className="
               pointer-events-none
